@@ -99,7 +99,7 @@ def make_image (generation, month, name):
     words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','')
     counts = Counter(words.split(' '))
     tags = counts.most_common(40)
-    wc = WordCloud(font_path=r"C:\Windows\Fonts\NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
+    wc = WordCloud(font_path=r"NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
 
     img = wc.fit_words(dict(tags)).to_image()
 
@@ -120,7 +120,7 @@ def make_image (generation, month, name):
     words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','')
     counts = Counter(words.split(' '))
     tags = counts.most_common(40)
-    wc = WordCloud(font_path=r"C:\Windows\Fonts\NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
+    wc = WordCloud(font_path=r"NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
 
     img = wc.fit_words(dict(tags)).to_image()
 
