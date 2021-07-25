@@ -18,6 +18,7 @@ name_list = ['all'] + list(post_df['이름'].drop_duplicates())
 
 def post_word_df(generation = 'all', month = 'all', name = ''):
     df =pd.read_csv('band_writings_list.csv')
+    df =df.loc[(df['processed'].isna() == False) & (df['processed'] != '')]
     if not generation == 'all':
         df = df.loc[df['기수'] == generation]
     if not month == 'all':
@@ -28,6 +29,7 @@ def post_word_df(generation = 'all', month = 'all', name = ''):
 
 def comment_word_df(generation = 'all', month = 'all', name = ''):
     df = pd.read_csv('band_comment_list.csv')
+    df =df.loc[(df['processed'].isna() == False) & (df['processed'] != '')]
     if not generation == 'all':
         df = df.loc[df['기수']== generation]
     if not month == 'all':

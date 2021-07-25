@@ -1,82 +1,202 @@
-# import pandas as pd
-# import dash
-# import dash_bootstrap_components as dbc
-# import dash_core_components as dcc
-# import dash_html_components as html
-# from dash.dependencies import Input, Output
-# from ddok_plot_list import generation_list, month_list
-#
-# basic_content = html.Div([
-#     html.Div([
-#         dcc.Markdown(
-#             """
-#             ## 기수별 데이터
-#
-#             기수별로 어떤 일이 있었을까요?
-#
-#             """
-#         ),
-#         html.P([html.Small("추가아이디어 있으면 제공 바람!"),
-#         #html.A(html.Small("twitter"), href="https://twitter.com/_jphwang", title="twitter"),
-#         html.Small("!")]),
-#     ]),
-#     html.Div([
-#     dcc.Markdown(
-#     """
-#     \n\n
-#     ### 글 데이터
-#     월 별로 글자 수를 세서 등수를 매겼습니다.
-#     아래 드롭다운 값을 통해, 월별 기수별로 데이터 확인이 가능합니다.\n
-#     마우스를 올리면 정확한 수치 확인 가능
-#     """
-#     )
-#     ]),
-#     html.Div([
-#         dcc.Dropdown(
-#             id='generation-select',
-#             options=[{'label': x, 'value': x} for x in generation_list],
-#             value='all',
-#             style={'width': '140px','display': 'inline-block'}
-#         ),
-#         dcc.Dropdown(
-#             id='month-select',
-#             options=[{'label': x, 'value': x} for x in month_list],
-#             value='all',
-#             style={'width': '140px','display': 'inline-block'}
-#         )
-#
-#     ]),
-#     dcc.Graph(
-#         id = 'post-word-plot',
-#         config={'displayModeBar': False}
-#     ),
-#         html.Div([
-#         dcc.Markdown(
-#         """
-#         ### 댓글 데이터
-#         월 별로 댓글 개수, 댓글 글자 수를 세서 등수를 매겼습니다.
-#         아래 드롭다운 값을 통해, 월별 기수별로 데이터 확인이 가능합니다.\n
-#         마우스를 올리면 정확한 수치 확인 가능
-#         """
-#         )
-#         ]),
-#         html.Div([
-#             dcc.Dropdown(
-#                 id='generation2-select',
-#                 options=[{'label': x, 'value': x} for x in generation_list],
-#                 value='all',
-#                 style={'width': '140px','display': 'inline-block'}
-#             ),
-#             dcc.Dropdown(
-#                 id='month2-select',
-#                 options=[{'label': x, 'value': x} for x in month_list],
-#                 value='all',
-#                 style={'width': '140px','display': 'inline-block'}
-#             )
-#
-#         ]),
-#         dcc.Graph(
-#             id = 'comment-plot',
-#             config={'displayModeBar': False}
-#         )
-# ])
+import pandas as pd
+import dash
+import dash_bootstrap_components as dbc
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output
+from ddok_plot_list import generation_list, month_list
+
+
+from nltk import ConditionalFreqDist,ConditionalProbDist,MLEProbDist
+import pickle
+
+name_list = ['','_유리','_창희','_doo','_은석','_은호']
+post_token_dict = {}
+comment_token_dict = {}
+for name in name_list:
+    with open('./word_tokens/sentences{}_글.pkl'.format(name),'rb') as f:
+        post_token_dict[name] = pickle.load(f)
+for name in name_list:
+    with open('./word_tokens/sentences{}_댓글.pkl'.format(name),'rb') as f:
+        comment_token_dict[name] = pickle.load(f)
+
+def korean_generate_sentence(sentences, seed=None, debug=False):
+    cfd = ConditionalFreqDist(sentences)
+    cpd = ConditionalProbDist(cfd, MLEProbDist)
+    if seed is not None:
+        import random
+        random.seed(seed)
+    c = "SS"
+    sentence = []
+    while True:
+        if c not in cpd:
+            break
+            
+        w = cpd[c].generate()
+
+        if w == "SE":
+            break
+
+        w2 = w.split("/")[0]
+        pos = w.split("/")[1]
+
+        if c == "SS":
+            sentence.append(w2.title())
+        elif c in ["`", "\"", "'", "("]:
+            sentence.append(w2)
+        elif w2 in ["'", ".", ",", ")", ":", ";", "?"]:
+            sentence.append(w2)
+        elif pos in ["Josa", "Punctuation", "Suffix"]:
+            sentence.append(w2)
+        elif w in ["임/Noun", "것/Noun", "는걸/Noun", "릴때/Noun",
+                   "되다/Verb", "이다/Verb", "하다/Verb", "이다/Adjective"]:
+            sentence.append(w2)
+        else:
+            sentence.append(" " + w2)
+        c = w
+
+        if debug:
+            print(w)
+
+    return "".join(sentence)
+
+generation_content = html.Div([
+    html.Div([
+        dcc.Markdown(
+            """
+            # 자동생성 봇
+
+            목표일지, 댓글 데이터를 이용해 만든 확률론적 언어모델로 문장 생성
+
+            """
+        ),
+        html.P([html.Small("원하시면 추가해드릴게요 말씀해주세요 ^~^"),
+        #html.A(html.Small("twitter"), href="https://twitter.com/_jphwang", title="twitter"),
+        html.Small("!")]),
+    ]),
+    html.Div([
+    dcc.Markdown(
+    """
+    \n\n
+    ## 똑집 봇
+    똑똑집단 4~9기 전체 데이터 활용해서 만든 봇
+    """
+    )
+    ]),
+    html.Div([
+        html.H2("일지 봇"),
+        html.Div(id = 'post_gen1'),
+        html.Button('일지 생성!','post_gen_buttion1',n_clicks=0),
+
+        html.H2("댓글 봇"),
+        html.Div(id = 'comment_gen1'),
+        html.Button('댓글 생성!','comment_gen_buttion1',n_clicks=0),
+        html.Hr(),
+
+    ]),
+])
+generation_content1 = html.Div([
+    html.Div([
+    dcc.Markdown(
+    """
+    ## 전유리 봇
+    창시자 전유리 데이터 학습
+    """
+    )
+    ]),
+    html.Div([
+        html.H2("일지 봇"),
+        html.Div(id = 'post_gen2'),
+        html.Button('일지 생성!','post_gen_buttion2',n_clicks=0),
+
+        html.H2("댓글 봇"),
+        html.Div(id = 'comment_gen2'),
+        html.Button('댓글 생성!','comment_gen_buttion2',n_clicks=0),
+        html.Hr(),
+
+    ]),
+])
+generation_content2 = html.Div([
+    html.Div([
+    dcc.Markdown(
+    """
+    ## 조창희 봇
+    그냥 조창희 데이터 학습
+    """
+    )
+    ]),
+    html.Div([
+        html.H2("일지 봇"),
+        html.Div(id = 'post_gen3'),
+        html.Button('일지 생성!','post_gen_buttion3',n_clicks=0),
+
+        html.H2("댓글 봇"),
+        html.Div(id = 'comment_gen3'),
+        html.Button('댓글 생성!','comment_gen_buttion3',n_clicks=0),
+        html.Hr(),
+
+    ]),
+])
+generation_content3 = html.Div([
+    html.Div([
+    dcc.Markdown(
+    """
+    ## 이두희 봇
+    댓글, 일지 데이터 통합 1위 두희,,
+    """
+    )
+    ]),
+    html.Div([
+        html.H2("일지 봇"),
+        html.Div(id = 'post_gen4'),
+        html.Button('일지 생성!','post_gen_buttion4',n_clicks=0),
+
+        html.H2("댓글 봇"),
+        html.Div(id = 'comment_gen4'),
+        html.Button('댓글 생성!','comment_gen_buttion4',n_clicks=0),
+        html.Hr(),
+
+    ]),
+])
+generation_content4 = html.Div([
+    html.Div([
+    dcc.Markdown(
+    """
+    ## 배은석 봇
+    9기 회장 배은석
+    """
+    )
+    ]),
+    html.Div([
+        html.H2("일지 봇"),
+        html.Div(id = 'post_gen5'),
+        html.Button('일지 생성!','post_gen_buttion5',n_clicks=0),
+
+        html.H2("댓글 봇"),
+        html.Div(id = 'comment_gen5'),
+        html.Button('댓글 생성!','comment_gen_buttion5',n_clicks=0),
+        html.Hr(),
+
+    ]),
+])
+generation_content5 = html.Div([
+    html.Div([
+    dcc.Markdown(
+    """
+    ## 이은호 봇
+    두희 오기 전에 일지 1인자 은호
+    """
+    )
+    ]),
+    html.Div([
+        html.H2("일지 봇"),
+        html.Div(id = 'post_gen6'),
+        html.Button('일지 생성!','post_gen_buttion6',n_clicks=0),
+
+        html.H2("댓글 봇"),
+        html.Div(id = 'comment_gen6'),
+        html.Button('댓글 생성!','comment_gen_buttion6',n_clicks=0),
+        html.Hr(),
+
+    ]),
+])

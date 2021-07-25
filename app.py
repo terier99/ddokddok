@@ -13,11 +13,19 @@ from collections import Counter
 from io import BytesIO
 import base64
 
+import pickle
+from nltk import bigrams, word_tokenize
+from nltk.util import ngrams
+from nltk import ConditionalFreqDist,ConditionalProbDist,MLEProbDist
+import random
+
 
 from ddok_plot_list import post_word_plot, comment_plot, generation_list, month_list
 from sidebar import sidebar
 from basic_content import basic_content
 from word_cloud import word_cloud,post_word_df,comment_word_df
+#from generation import generation_content,generation_content1,generation_content2,generation_content3,generation_content4,generation_content5 name_list, post_token_dict, comment_token_dict, korean_generate_sentence
+from generation import *
 
 import numpy as np
 
@@ -46,8 +54,19 @@ def render_page_content(pathname):
         return basic_content
     elif pathname == "/word_cloud":
         return word_cloud
-    elif pathname == "/page-2":
-        return html.P("추후업데이트!")
+    elif pathname == "/generation":
+        return generation_content
+    elif pathname == "/generation1":
+        return generation_content1
+    elif pathname == "/generation2":
+        return generation_content2
+    elif pathname == "/generation3":
+        return generation_content3
+    elif pathname == "/generation4":
+        return generation_content4
+    elif pathname == "/generation5":
+        return generation_content5
+    
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
@@ -96,7 +115,7 @@ def update_graph(generation, month):
 def make_image (generation, month, name):
     tmp_df = post_word_df(generation,  month, name)
     words = ' '.join(list(tmp_df['processed'].apply(lambda x: str(x))))
-    words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','')
+    words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','').replace('   ',' ').replace('  ',' ')
     counts = Counter(words.split(' '))
     tags = counts.most_common(40)
     wc = WordCloud(font_path=r"NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
@@ -117,7 +136,7 @@ def make_image (generation, month, name):
 def make_image (generation, month, name):
     tmp_df = comment_word_df(generation,  month, name)
     words = ' '.join(list(tmp_df['processed'].apply(lambda x: str(x))))
-    words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','')
+    words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','').replace('   ',' ').replace('  ',' ')
     counts = Counter(words.split(' '))
     tags = counts.most_common(40)
     wc = WordCloud(font_path=r"NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
@@ -128,6 +147,135 @@ def make_image (generation, month, name):
         img.save(buffer, format='png')
         img2 = base64.b64encode(buffer.getvalue()).decode()
     return 'data:image/png;base64,{}'.format(img2)
+
+# for i in range(len(name_list)):
+#     @app.callback(
+#     Output('post_gen{}'.format(i+1), 'children'),
+#     Input('post_gen_buttion{}'.format(i+1), 'n_clicks'),
+#     )
+#     def update_bot(n_clicks):
+#         sentences = post_token_dict[name_list[i]]
+#         seed = random.randint(0,1000)
+#         gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+#         return html.P(gen)
+#     @app.callback(
+#     Output('comment_gen{}'.format(i+1), 'children'),
+#     Input('comment_gen_buttion{}'.format(i+1), 'n_clicks'),
+#     )
+#     def update_bot(n_clicks):
+#         sentences = comment_token_dict[name_list[i]]
+#         seed = random.randint(0,1000)
+#         gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+#         return html.P(gen)
+
+@app.callback(
+Output('post_gen1', 'children'),
+Input('post_gen_buttion1', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = post_token_dict[name_list[0]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('comment_gen1', 'children'),
+Input('comment_gen_buttion1', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = comment_token_dict[name_list[0]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('post_gen2', 'children'),
+Input('post_gen_buttion2', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = post_token_dict[name_list[1]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('comment_gen2', 'children'),
+Input('comment_gen_buttion2', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = comment_token_dict[name_list[1]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('post_gen3', 'children'),
+Input('post_gen_buttion3', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = post_token_dict[name_list[2]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('comment_gen3', 'children'),
+Input('comment_gen_buttion3', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = comment_token_dict[name_list[2]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('post_gen4', 'children'),
+Input('post_gen_buttion4', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = post_token_dict[name_list[3]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('comment_gen4', 'children'),
+Input('comment_gen_buttion4', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = comment_token_dict[name_list[3]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('post_gen5', 'children'),
+Input('post_gen_buttion5', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = post_token_dict[name_list[4]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('comment_gen5', 'children'),
+Input('comment_gen_buttion5', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = comment_token_dict[name_list[4]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('post_gen6', 'children'),
+Input('post_gen_buttion6', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = post_token_dict[name_list[5]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('comment_gen6', 'children'),
+Input('comment_gen_buttion6', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = comment_token_dict[name_list[5]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
