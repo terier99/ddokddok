@@ -62,15 +62,15 @@ def render_page_content(pathname):
     elif pathname == "/word_cloud":
         return word_cloud
     elif pathname == "/generation":
-        return generation_content
-    elif pathname == "/generation1":
         return generation_content1
-    elif pathname == "/generation2":
+    elif pathname == "/generation1":
         return generation_content2
-    elif pathname == "/generation3":
+    elif pathname == "/generation2":
         return generation_content3
-    elif pathname == "/generation4":
+    elif pathname == "/generation3":
         return generation_content4
+    elif pathname == "/generation4":
+        return generation_content5
     # elif pathname == "/generation5":
     #     return generation_content5
     
@@ -198,7 +198,7 @@ Output('post_gen2', 'children'),
 Input('post_gen_buttion2', 'n_clicks'),
 )
 def update_bot(n_clicks):
-    sentences = post_token_dict[name_list[1]]
+    sentences = post_token_dict[name_list[0]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
@@ -207,7 +207,7 @@ Output('comment_gen2', 'children'),
 Input('comment_gen_buttion2', 'n_clicks'),
 )
 def update_bot(n_clicks):
-    sentences = comment_token_dict[name_list[1]]
+    sentences = comment_token_dict[name_list[0]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
@@ -216,7 +216,7 @@ Output('post_gen3', 'children'),
 Input('post_gen_buttion3', 'n_clicks'),
 )
 def update_bot(n_clicks):
-    sentences = post_token_dict[name_list[2]]
+    sentences = post_token_dict[name_list[1]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
@@ -225,7 +225,7 @@ Output('comment_gen3', 'children'),
 Input('comment_gen_buttion3', 'n_clicks'),
 )
 def update_bot(n_clicks):
-    sentences = comment_token_dict[name_list[2]]
+    sentences = comment_token_dict[name_list[1]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
@@ -234,7 +234,7 @@ Output('post_gen4', 'children'),
 Input('post_gen_buttion4', 'n_clicks'),
 )
 def update_bot(n_clicks):
-    sentences = post_token_dict[name_list[3]]
+    sentences = post_token_dict[name_list[2]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
@@ -243,7 +243,7 @@ Output('comment_gen4', 'children'),
 Input('comment_gen_buttion4', 'n_clicks'),
 )
 def update_bot(n_clicks):
-    sentences = comment_token_dict[name_list[3]]
+    sentences = comment_token_dict[name_list[2]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
@@ -252,7 +252,7 @@ Output('post_gen5', 'children'),
 Input('post_gen_buttion5', 'n_clicks'),
 )
 def update_bot(n_clicks):
-    sentences = post_token_dict[name_list[4]]
+    sentences = post_token_dict[name_list[3]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
@@ -261,28 +261,28 @@ Output('comment_gen5', 'children'),
 Input('comment_gen_buttion5', 'n_clicks'),
 )
 def update_bot(n_clicks):
+    sentences = comment_token_dict[name_list[3]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('post_gen6', 'children'),
+Input('post_gen_buttion6', 'n_clicks'),
+)
+def update_bot(n_clicks):
+    sentences = post_token_dict[name_list[4]]
+    seed = random.randint(0,1000)
+    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+    return html.P(gen)
+@app.callback(
+Output('comment_gen6', 'children'),
+Input('comment_gen_buttion6', 'n_clicks'),
+)
+def update_bot(n_clicks):
     sentences = comment_token_dict[name_list[4]]
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
-# @app.callback(
-# Output('post_gen6', 'children'),
-# Input('post_gen_buttion6', 'n_clicks'),
-# )
-# def update_bot(n_clicks):
-#     sentences = post_token_dict[name_list[5]]
-#     seed = random.randint(0,1000)
-#     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
-#     return html.P(gen)
-# @app.callback(
-# Output('comment_gen6', 'children'),
-# Input('comment_gen_buttion6', 'n_clicks'),
-# )
-# def update_bot(n_clicks):
-#     sentences = comment_token_dict[name_list[5]]
-#     seed = random.randint(0,1000)
-#     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
-#     return html.P(gen)
 
 if __name__ == '__main__':
     app.run_server(debug=True)

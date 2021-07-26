@@ -181,24 +181,24 @@ generation_content4 = html.Div([
 
     ]),
 ])
-# generation_content5 = html.Div([
-#     html.Div([
-#     dcc.Markdown(
-#     """
-#     ## 이은호 봇
-#     두희 오기 전에 일지 1인자 은호
-#     """
-#     )
-#     ]),
-#     html.Div([
-#         html.H2("일지 봇"),
-#         dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen6')])])]),
-#         dbc.Button('일지 생성!','post_gen_buttion6',n_clicks=0, style = {'margin-top': '5px'}),
-#         html.Hr(),
-#         html.H2("댓글 봇"),
-#         dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen6')])])]),
-#         dbc.Button('댓글 생성!','comment_gen_buttion6',n_clicks=0, style = {'margin-top': '5px'}),
+generation_content5 = html.Div([
+    html.Div([
+    dcc.Markdown(
+    """
+    ## 이은호 봇
+    두희 오기 전에 일지 1인자 은호
+    """
+    )
+    ]),
+    html.Div([
+        html.H2("일지 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen6')])])]),
+        dbc.Button('일지 생성!','post_gen_buttion6',n_clicks=0, style = {'margin-top': '5px'}),
+        html.Hr(),
+        html.H2("댓글 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen6')])])]),
+        dbc.Button('댓글 생성!','comment_gen_buttion6',n_clicks=0, style = {'margin-top': '5px'}),
 
 
-#     ]),
-# ])
+    ]),
+])
