@@ -42,8 +42,8 @@ def post_word_plot(generation = 'all', month = 'all'):
 
     fig = px.bar(post_word_df(post_df, generation = generation, month = month, method = 'sum').sort_values(by ='글길이'), x = '글길이', y = '이름',
                 hover_data=['글길이'], color='글길이',orientation='h', title = '글 글자수')
-    fig.update_layout(    paper_bgcolor='rgb(248, 248, 255)',
-        plot_bgcolor='rgb(248, 248, 255)',)
+    fig.update_layout(    paper_bgcolor='rgb(0, 0, 0,0)',
+        plot_bgcolor='rgb(0, 0, 0,0)',)
     return fig
     fig.show()
 
@@ -133,10 +133,10 @@ def comment_plot(generation = 'all', month = 'all'):
     #         side='top',
     #         dtick=25000,
     #     ),
-        legend=dict(x=0.029, y=1.038, font_size=10),
+        legend=dict(x=0.029, y=1.038, font_size=10, bordercolor="black", bgcolor = 'white'),
         margin=dict(l=100, r=20, t=70, b=70),
-        paper_bgcolor='rgb(248, 248, 255)',
-        plot_bgcolor='rgb(248, 248, 255)',
+        paper_bgcolor='rgb(0, 0, 0,0)',
+        plot_bgcolor='rgb(0, 0, 0,0)',
     )
 
     annotations = []
@@ -147,7 +147,7 @@ def comment_plot(generation = 'all', month = 'all'):
 
     # Source
     annotations.append(dict(xref='paper', yref='paper',
-                            x=-0.1, y=-0.109,
+                            x=0, y=-0.109,
                             text= '똑똑집단 댓글 통계',
                             font=dict(family='Arial', size=10, color='rgb(150,150,150)'),
                             showarrow=False))

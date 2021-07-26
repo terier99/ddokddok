@@ -9,9 +9,10 @@ SIDEBAR_STYLE = {
     "top": 0,
     "left": 0,
     "bottom": 0,
-    "width": "16rem",
+    "width": "14rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+    "background-color": "black",
+    "color":"white"
 }
 
 CONTENT_STYLE = {
@@ -22,38 +23,41 @@ CONTENT_STYLE = {
 
 sidebar = html.Div(
     [
-        html.H2("승수머신 웹", className="display-4"),
+        html.H2("승수머신 웹", className="display-4", style = {'font-size':'25px','font-family':'CookieRun'}),
         html.Hr(),
         html.P(
             "메뉴", className="lead", style = {'font-size':'20px'}
         ),
         dbc.Nav(
             [
-                dbc.NavLink("승수머신 basic", href="/", active="exact",
-                style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'20px', 'width':'150px','margin':'2px'}),
-                html.Hr(),
+                dbc.NavLink("홈", href="/", active="exact",
+                style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'16px', 'width':'150px','margin':'2px', 'color':'white'}),
+                # html.Hr(),
+                dbc.NavLink("승수머신 basic", href="/basic", active="exact",
+                style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'16px', 'width':'150px','margin':'2px', 'color':'white'}),
+                # html.Hr(),
                 dbc.NavLink("똑집 단어구름", href="/word_cloud", active="exact",
-                style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'20px', 'width':'150px','margin':'2px'}),
-                html.Hr(),
+                style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'16px', 'width':'150px','margin':'2px', 'color':'white'}),
+                # html.Hr(),
                 dbc.NavLink("자동 생성 봇", href="/generation", active="exact",
-                style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'20px', 'width':'150px','margin':'2px'}),
-                html.Hr(),
+                style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'16px', 'width':'150px','margin':'2px', 'color':'white'}),
+                # html.Hr(),
                 dbc.Nav([
                     dbc.NavLink("전유리 봇", href="/generation1", active="exact",
-                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px'}),
-                    html.Hr(),
+                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px', 'color':'white'}),
+                    # html.Hr(),
                     dbc.NavLink("조창희 봇", href="/generation2", active="exact",
-                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px'}),
-                    html.Hr(),
+                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px', 'color':'white'}),
+                    # html.Hr(),
                     dbc.NavLink("이두희 봇", href="/generation3", active="exact",
-                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px'}),
-                    html.Hr(),
+                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px', 'color':'white'}),
+                    # html.Hr(),
                     dbc.NavLink("배은석 봇", href="/generation4", active="exact",
-                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px'}),
-                    html.Hr(),
+                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px', 'color':'white'}),
+                    # html.Hr(),
                     dbc.NavLink("이은호 봇", href="/generation5", active="exact",
-                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px'}),
-                    html.Hr(),
+                    style={'display': 'block','text-decoration-line':'none','color':'black','font-size':'12px', 'width':'100px','margin':'2px', 'color':'white'}),
+                    # html.Hr(),
                 ])
             ],
             vertical=True,

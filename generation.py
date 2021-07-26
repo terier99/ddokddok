@@ -66,7 +66,8 @@ generation_content = html.Div([
             """
             # 자동생성 봇
 
-            목표일지, 댓글 데이터를 이용해 만든 확률론적 언어모델로 문장 생성
+            목표일지, 댓글 데이터를 이용해 만든 확률론적 언어모델로 문장 생성\n
+            일지 생성!, 댓글 생성! 버튼 클릭시 자동으로 새로운 일지, 댓글 생성
 
             """
         ),
@@ -74,6 +75,7 @@ generation_content = html.Div([
         #html.A(html.Small("twitter"), href="https://twitter.com/_jphwang", title="twitter"),
         html.Small("!")]),
     ]),
+    html.Hr(),
     html.Div([
     dcc.Markdown(
     """
@@ -85,13 +87,12 @@ generation_content = html.Div([
     ]),
     html.Div([
         html.H2("일지 봇"),
-        html.Div(id = 'post_gen1'),
-        html.Button('일지 생성!','post_gen_buttion1',n_clicks=0),
-
-        html.H2("댓글 봇"),
-        html.Div(id = 'comment_gen1'),
-        html.Button('댓글 생성!','comment_gen_buttion1',n_clicks=0),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen1')])])]),
+        dbc.Button('일지 생성!','post_gen_buttion1',n_clicks=0, style = {'margin-top': '5px'}),
         html.Hr(),
+        html.H2("댓글 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen1')])])]),
+        dbc.Button('댓글 생성!','comment_gen_buttion1',n_clicks=0, style = {'margin-top': '5px'}),
 
     ]),
 ])
@@ -106,13 +107,13 @@ generation_content1 = html.Div([
     ]),
     html.Div([
         html.H2("일지 봇"),
-        html.Div(id = 'post_gen2'),
-        html.Button('일지 생성!','post_gen_buttion2',n_clicks=0),
-
-        html.H2("댓글 봇"),
-        html.Div(id = 'comment_gen2'),
-        html.Button('댓글 생성!','comment_gen_buttion2',n_clicks=0),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen2')])])]),
+        dbc.Button('일지 생성!','post_gen_buttion2',n_clicks=0, style = {'margin-top': '5px'}),
         html.Hr(),
+        html.H2("댓글 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen2')])])]),
+        dbc.Button('댓글 생성!','comment_gen_buttion2',n_clicks=0, style = {'margin-top': '5px'}),
+        
 
     ]),
 ])
@@ -127,13 +128,13 @@ generation_content2 = html.Div([
     ]),
     html.Div([
         html.H2("일지 봇"),
-        html.Div(id = 'post_gen3'),
-        html.Button('일지 생성!','post_gen_buttion3',n_clicks=0),
-
-        html.H2("댓글 봇"),
-        html.Div(id = 'comment_gen3'),
-        html.Button('댓글 생성!','comment_gen_buttion3',n_clicks=0),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen3')])])]),
+        dbc.Button('일지 생성!','post_gen_buttion3',n_clicks=0, style = {'margin-top': '5px'}),
         html.Hr(),
+        html.H2("댓글 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen3')])])]),
+        dbc.Button('댓글 생성!','comment_gen_buttion3',n_clicks=0, style = {'margin-top': '5px'}),
+  
 
     ]),
 ])
@@ -148,13 +149,13 @@ generation_content3 = html.Div([
     ]),
     html.Div([
         html.H2("일지 봇"),
-        html.Div(id = 'post_gen4'),
-        html.Button('일지 생성!','post_gen_buttion4',n_clicks=0),
-
-        html.H2("댓글 봇"),
-        html.Div(id = 'comment_gen4'),
-        html.Button('댓글 생성!','comment_gen_buttion4',n_clicks=0),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen4')])])]),
+        dbc.Button('일지 생성!','post_gen_buttion4',n_clicks=0, style = {'margin-top': '5px'}),
         html.Hr(),
+        html.H2("댓글 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen4')])])]),
+        dbc.Button('댓글 생성!','comment_gen_buttion4',n_clicks=0, style = {'margin-top': '5px'}),
+
 
     ]),
 ])
@@ -169,13 +170,13 @@ generation_content4 = html.Div([
     ]),
     html.Div([
         html.H2("일지 봇"),
-        html.Div(id = 'post_gen5'),
-        html.Button('일지 생성!','post_gen_buttion5',n_clicks=0),
-
-        html.H2("댓글 봇"),
-        html.Div(id = 'comment_gen5'),
-        html.Button('댓글 생성!','comment_gen_buttion5',n_clicks=0),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen5')])])]),
+        dbc.Button('일지 생성!','post_gen_buttion5',n_clicks=0, style = {'margin-top': '5px'}),
         html.Hr(),
+        html.H2("댓글 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen5')])])]),
+        dbc.Button('댓글 생성!','comment_gen_buttion5',n_clicks=0, style = {'margin-top': '5px'}),
+
 
     ]),
 ])
@@ -190,13 +191,13 @@ generation_content5 = html.Div([
     ]),
     html.Div([
         html.H2("일지 봇"),
-        html.Div(id = 'post_gen6'),
-        html.Button('일지 생성!','post_gen_buttion6',n_clicks=0),
-
-        html.H2("댓글 봇"),
-        html.Div(id = 'comment_gen6'),
-        html.Button('댓글 생성!','comment_gen_buttion6',n_clicks=0),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'post_gen6')])])]),
+        dbc.Button('일지 생성!','post_gen_buttion6',n_clicks=0, style = {'margin-top': '5px'}),
         html.Hr(),
+        html.H2("댓글 봇"),
+        dbc.Card([dbc.Row([dbc.Col([html.Div(id = 'comment_gen6')])])]),
+        dbc.Button('댓글 생성!','comment_gen_buttion6',n_clicks=0, style = {'margin-top': '5px'}),
+
 
     ]),
 ])

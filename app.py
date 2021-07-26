@@ -4,6 +4,8 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+from dash_bootstrap_templates import load_figure_template
+
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -26,10 +28,13 @@ from basic_content import basic_content
 from word_cloud import word_cloud,post_word_df,comment_word_df
 #from generation import generation_content,generation_content1,generation_content2,generation_content3,generation_content4,generation_content5 name_list, post_token_dict, comment_token_dict, korean_generate_sentence
 from generation import *
+from home import home_content
 
 import numpy as np
 
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
+
+load_figure_template("sketch")
+app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[r'assets\bootstrap.css'])
 
 
 server = app.server
@@ -51,6 +56,8 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
+        return home_content
+    elif pathname == "/basic":
         return basic_content
     elif pathname == "/word_cloud":
         return word_cloud
@@ -118,7 +125,7 @@ def make_image (generation, month, name):
     words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','').replace('   ',' ').replace('  ',' ')
     counts = Counter(words.split(' '))
     tags = counts.most_common(40)
-    wc = WordCloud(font_path=r"NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
+    wc = WordCloud(font_path=r'C:\Users\cho\Desktop\똑똑집단\ddokddok\css\NanumGothic.ttf', max_font_size=500 , width=1200, background_color='white', height=600)
 
     img = wc.fit_words(dict(tags)).to_image()
 
@@ -139,7 +146,7 @@ def make_image (generation, month, name):
     words = words.replace('목표','').replace('달성','').replace('일지','').replace('성취도','').replace('이번','').replace('인증','').replace('   ',' ').replace('  ',' ')
     counts = Counter(words.split(' '))
     tags = counts.most_common(40)
-    wc = WordCloud(font_path=r"NanumGothic.ttf", max_font_size=500 , width=1200, height=600)
+    wc = WordCloud(font_path=r'C:\Users\cho\Desktop\똑똑집단\ddokddok\css\NanumGothic.ttf', max_font_size=500 , width=1200, background_color='white', height=600)
 
     img = wc.fit_words(dict(tags)).to_image()
 

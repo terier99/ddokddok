@@ -10,9 +10,9 @@ basic_content = html.Div([
     html.Div([
         dcc.Markdown(
             """
-            ## 똑똑집단 데이터 결산
-            4~9기 데이터 활용하였습니다.\n
-            3기 밴드 관리자분 계시면 연락주세요.
+            ## 기본 승수머신
+            그래프를 드래그하면 확대됨 더블 클릭하면 원래대로 돌아옴\n
+            모바일에서는 확대될 경우 두번 탭하면 원상복귀됨
 
             """
         ),
@@ -20,6 +20,7 @@ basic_content = html.Div([
         #html.A(html.Small("twitter"), href="https://twitter.com/_jphwang", title="twitter"),
         html.Small("!")]),
     ]),
+    html.Hr(),
     html.Div([
     dcc.Markdown(
     """
@@ -31,25 +32,34 @@ basic_content = html.Div([
     """
     )
     ]),
+    
     html.Div([
+        html.Label(["기수 : "], style = {'display':'inline-block'}),
         dcc.Dropdown(
             id='generation-select',
             options=[{'label': x, 'value': x} for x in generation_list],
             value='all',
-            style={'width': '140px','display': 'inline-block'}
+            style={'height': '30px', 'width': '140px', 'margin-bottom': '10px'}
         ),
+        html.Label(["월 : "], style = {'display':'inline-block'}),
         dcc.Dropdown(
             id='month-select',
             options=[{'label': x, 'value': x} for x in month_list],
             value='all',
-            style={'width': '140px','display': 'inline-block'}
+            style={'height': '30px', 'width': '140px', 'margin-bottom': '10px'}
         )
 
     ]),
+    dbc.Card([
     dcc.Graph(
         id = 'post-word-plot',
-        config={'displayModeBar': False}
-    ),
+        config={'displayModeBar': False}, style ={'margin':'15px'}
+        
+    )
+    ])
+    ,
+
+    html.Hr(),
         html.Div([
         dcc.Markdown(
         """
@@ -61,22 +71,26 @@ basic_content = html.Div([
         )
         ]),
         html.Div([
+            html.Label(["기수 : "], style = {'display':'inline-block'}),
             dcc.Dropdown(
                 id='generation2-select',
                 options=[{'label': x, 'value': x} for x in generation_list],
                 value='all',
-                style={'width': '140px','display': 'inline-block'}
+                style={'height': '30px', 'width': '140px', 'margin-bottom': '10px'}
             ),
+            html.Label(["월 : "], style = {'display':'inline-block'}),
             dcc.Dropdown(
                 id='month2-select',
                 options=[{'label': x, 'value': x} for x in month_list],
                 value='all',
-                style={'width': '140px','display': 'inline-block'}
+                style={'height': '30px', 'width': '140px', 'margin-bottom': '10px'}
             )
 
         ]),
+        dbc.Card([
         dcc.Graph(
             id = 'comment-plot',
-            config={'displayModeBar': False}
+            config={'displayModeBar': False}, style ={'margin':'15px'}
         )
+        ])
 ])

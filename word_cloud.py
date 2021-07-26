@@ -52,11 +52,12 @@ word_cloud = html.Div([
         #html.A(html.Small("twitter"), href="https://twitter.com/_jphwang", title="twitter"),
         html.Small("!")]),
     ]),
+    html.Hr(),
     html.Div([
     dcc.Markdown(
     """
     \n\n
-    ### *게시글* 단어구름
+    #### 게시글 단어구름
     아래 드롭다운 값을 통해, 월별 기수별로 데이터 확인이 가능합니다.\n
     이름칸은 비워 놓으면 전체 검색이 가능합니다.
     """
@@ -87,13 +88,14 @@ word_cloud = html.Div([
         )], style={'width': '140px', 'margin-bottom': '10px'})
 
     ]),
-        html.Img(id = 'image-wc')
+        dbc.Card([html.Img(id = 'image-wc',style ={'margin':'15px'})])
     ,
+    html.Hr(),
     html.Div([
     dcc.Markdown(
     """
     \n\n
-    ### *댓글* 단어구름
+    #### 댓글 단어구름
     아래 드롭다운 값을 통해, 월별 기수별로 데이터 확인이 가능합니다.\n
     이름칸은 비워 놓으면 전체 검색이 가능합니다.
     """
@@ -124,5 +126,5 @@ word_cloud = html.Div([
         )], style={'width': '140px', 'margin-bottom': '10px'})
 
     ]),
-        html.Img(id = 'image-wc2')
+        dbc.Card([html.Img(id = 'image-wc2',style ={'margin':'15px'})])
 ])
