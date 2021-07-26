@@ -71,8 +71,8 @@ def render_page_content(pathname):
         return generation_content3
     elif pathname == "/generation4":
         return generation_content4
-    elif pathname == "/generation5":
-        return generation_content5
+    # elif pathname == "/generation5":
+    #     return generation_content5
     
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
@@ -265,24 +265,24 @@ def update_bot(n_clicks):
     seed = random.randint(0,1000)
     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
     return html.P(gen)
-@app.callback(
-Output('post_gen6', 'children'),
-Input('post_gen_buttion6', 'n_clicks'),
-)
-def update_bot(n_clicks):
-    sentences = post_token_dict[name_list[5]]
-    seed = random.randint(0,1000)
-    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
-    return html.P(gen)
-@app.callback(
-Output('comment_gen6', 'children'),
-Input('comment_gen_buttion6', 'n_clicks'),
-)
-def update_bot(n_clicks):
-    sentences = comment_token_dict[name_list[5]]
-    seed = random.randint(0,1000)
-    gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
-    return html.P(gen)
+# @app.callback(
+# Output('post_gen6', 'children'),
+# Input('post_gen_buttion6', 'n_clicks'),
+# )
+# def update_bot(n_clicks):
+#     sentences = post_token_dict[name_list[5]]
+#     seed = random.randint(0,1000)
+#     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+#     return html.P(gen)
+# @app.callback(
+# Output('comment_gen6', 'children'),
+# Input('comment_gen_buttion6', 'n_clicks'),
+# )
+# def update_bot(n_clicks):
+#     sentences = comment_token_dict[name_list[5]]
+#     seed = random.randint(0,1000)
+#     gen = korean_generate_sentence(sentences = sentences, seed = random.seed(seed))
+#     return html.P(gen)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
