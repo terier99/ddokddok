@@ -51,18 +51,7 @@
   }
 }
 
-@font-face {
 
-  font-family: 'CookieRun'; 
-  src: url("css\CookieRun Black.ttf");
-}
-
-@font-face {
-
-  font-family: 'CookieRun'; 
-  src: url("css\CookieRun Black.ttf");
-  font-weight: bold;
-}
 
 body {
   margin: 0;
@@ -91,7 +80,7 @@ hr:not([size]) {
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Cabin Sketch", "CookieRun",cursive;
+  font-family: "Cabin Sketch",cursive;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -11007,7 +10996,7 @@ fieldset:disabled .btn {
 }
 
 .navbar-brand {
-  font-family: "Cabin Sketch", "CookieRun",cursive;
+  font-family: "Cabin Sketch",cursive;
   font-weight: 400;
   text-decoration: none;
 }
@@ -11327,7 +11316,7 @@ select.form-control {
 }
 
 .toast-header {
-  font-family: "Cabin Sketch", "CookieRun", cursive;
+  font-family: "Cabin Sketch", cursive;
 }
 
 .modal-content {
